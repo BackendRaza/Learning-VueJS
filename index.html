@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Vue App</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <!-- Import Vue -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.33/vue.global.min.js" integrity="sha512-nswZG83l1MggaGEAe/zLIbsVpZJUyqv+yg40f2CNp9QH5AOtOsjS4PSdWRDEr/v+R6YPhNJ1gvhDEJDOqh5qxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <h1>The App Goes Here!!!!!</h1>
+    <div id="app">
+        <h1>{{product}}</h1>
+        <h2><a v-bind:href="link">Google</a></h2>
+        <p v-if="inventory > 10">In Stock</p>
+        <p v-else-if="inventory <= 10 && inventory > 0" >Almost Finished</p>
+        <p v-else>Out of Stock</p>
+        <p v-if="inStock">On Sale</p>
+        <p>{{description}}</p>
+        <img v-bind:src="image" alt="This is coming from js">
+        <ul style="list-style-type: none;">
+            <li v-for="detail in details">{{detail}}</li>
+        </ul>
+        <div v-for="m in more_details">
+            {{m.color }}
+        </div>
+        <ul style="list-style-type: none;">
+            <li v-for="size in sizes">{{size.adults}}</li>
+        </ul>
+    </div>
+
+
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script>
+        const MountedApp = app.mount('#app')
+    </script>
+</body>
+</html>
