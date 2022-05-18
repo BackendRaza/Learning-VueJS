@@ -17,9 +17,9 @@ app.component('product-display', {
     </ul>
     <div
     class="color-circle" 
-    v-for="m in more_details" 
-    :key="m.id" 
-    @mouseover="updateImage(m.image)" 
+    v-for="(variant, index) in variants" 
+    :key="variant.id" 
+    @mouseover="updateVariant(index)" 
     style="display: inline-block; margin:10px;"
     :style="{backgroundColor: m.color}"
     >
@@ -39,26 +39,25 @@ app.component('product-display', {
             product: 'Socks',
             brand: 'Vue Learning',
             description: 'It is used to wear under the shoes!!',
-            image: "./assets/images/sock_black.jpg",
             link: "https://www.google.com",
-            inStock: true,
             inventory: 0,
+            inStock: true,
             onSale:true,
             details:['cotton', 'polyster', 'plastic'],
-            more_details: [
-                {id: 001, color: 'midnightblue', image:"./assets/images/sock_black.jpg"},
-                {id: 002, color:'Grey', image:"./assets/images/sock_white.jpg"}
+            variants: [
+                {id: 001, color: 'midnightblue', image:"/assets/images/sock_black.jpg", quantity: 50},
+                {id: 002, color:'Grey', image:"/assets/images/sock_white.jpg", quantity: 0}
             ],
-            sizes: [{kids: 'Small'},{teens: 'Large'},{adults: 'Extra Large'}],
-            
+            sizes: [{kids: 'Small'},{teens: 'Large'},{adults: 'Extra Large'}],            
         }
     },
     methods: {
         addToCart(){
             this.cart += 1
         },
-        updateImage(variantImage){
-            this.image = variantImage
+        updateVariant(index){
+            this.selectedVariant = index
+            console.log(index)
         },
         removeCart(){
             this.cart -= 1
@@ -67,6 +66,9 @@ app.component('product-display', {
     computed: {
         title(){
             return this.brand+' '+this.product
-        }
+        },
+        image(){
+            return this.variant[this.selectedVariant].image
+        },
     }
 })

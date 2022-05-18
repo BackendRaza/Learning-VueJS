@@ -6,22 +6,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My First Vue App</title>
     <link rel="stylesheet" href="./assets/style.css">
+    <!-- CSS only -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"> -->
     <!-- Import Vue -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.33/vue.global.min.js" integrity="sha512-nswZG83l1MggaGEAe/zLIbsVpZJUyqv+yg40f2CNp9QH5AOtOsjS4PSdWRDEr/v+R6YPhNJ1gvhDEJDOqh5qxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.33/vue.global.min.js" integrity="sha512-nswZG83l1MggaGEAe/zLIbsVpZJUyqv+yg40f2CNp9QH5AOtOsjS4PSdWRDEr/v+R6YPhNJ1gvhDEJDOqh5qxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
 </head>
 <body>
-    <div id="app">
-        <product-display></product-display>
-        <product-display></product-display>
-        <product-display></product-display>
-    </div>
-
-
+    <!-- <div id="app">    
+        <h1>{{product}}</h1>
+        <h2><a v-bind:href="link">Google</a></h2>
+        <h1>{{title}}</h1>
+        <p v-if="inStock">In Stock</p>
+        <p v-else>Out of Stock</p>
+        <p>{{description}}</p>
+        <img v-bind:src="image"
+        style="height: 500px; width:500px; border: 4px solid black;"
+        :class="{'outOfStockImage': !inStock}">
+        <ul style="list-style-type: none;">
+            <li v-for="detail in details">{{detail}}</li>
+        </ul>
+        <div
+        class="color-circle" 
+        v-for="(index, variant) in variants" 
+        :key="variant.id" 
+        @mouseover="updateVariant(index)" 
+        style="display: inline-block; margin:10px;"
+        :style="{backgroundColor: variant.color}"
+        >
+        </div>
+        <ul style="list-style-type: none;">
+            <li v-for="size in sizes">{{size.adults}}</li>
+        </ul>
+        <div>
+            <button v-on:click="addToCart" :disabled="!inStock">Add to Cart</button>
+            <button v-on:click="removeCart">Remove Cart</button>
+            <div style="border: 1px solid black; display: inline-block; padding: 10px;">
+                Cart {{cart}}
+            </div>
+        </div>
+    </div> -->
+    <div id="app" class="">
+        <div class="nav-bar"></div>
+  
+        <div class="cart">Cart({{ cart }})</div>
+        
+        <div class="product-display">
+          <div class="product-container">
+            <div class="product-image">
+              <img v-bind:src="image">
+            </div>
+            <div class="product-info">
+              <h1>{{ title }}</h1>
+              <!-- solution -->
+              <p v-if="inStock">In Stock</p>
+              <p v-else>Out of Stock</p>
+              <ul>
+                <li v-for="detail in details">{{ detail }}</li>
+              </ul>
+  
+              <div 
+                v-for="(variant, index) in variants" 
+                :key="variant.id" 
+                @mouseover="updateVariant(index)" 
+                class="color-circle" 
+                :style="{ backgroundColor: variant.color }">
+              </div>
+              
+              <button class="button" :class="{ disabledButton: !inStock }" :disabled="!inStock" v-on:click="addToCart">Add to Cart</button>
+              <button class="button" :class="{ disabledButton: !inStock }" :disabled="!inStock" v-on:click="removeCart">Remove from Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
     <!-- Scripts -->
     <script src="main.js"></script>
-    <script src="/components/productDisplay.js"></script>
+    <!-- <script src="/components/productDisplay.js"></script> -->
     <script>
         const MountedApp = app.mount('#app')
     </script>
+    <!-- JavaScript Bundle with Popper -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script> -->
 </body>
 </html>
