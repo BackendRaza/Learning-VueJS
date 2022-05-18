@@ -1,11 +1,18 @@
 const app = Vue.createApp({
     data(){
         return{
-            cart: 0,
+            cart: [],
             premium: false,
             details: ['10 days return policy', 'Easy returns', 'One year warranty'],
         }        
     },
-    methods: {}
+    methods: {
+        UpdateCart(id){
+            this.cart.push(id)
+        },
+        removeFromCart(id){
+            this.cart.pop(id)
+        }
+    }
    
 })

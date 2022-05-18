@@ -50,17 +50,17 @@ app.component('product-display', {
             details:['cotton', 'polyster', 'plastic'],
             variants: [
                 {id: 001, color: 'blue', image:"./assets/images/socks_blue.jpg", quantity: 50},
-                {id: 002, color:'Green', image:"./assets/images/socks_green.jpg", quantity: 0}
+                {id: 002, color:'Green', image:"./assets/images/socks_green.jpg", quantity: 10}
             ],
             sizes: [{kids: 'Small'},{teens: 'Large'},{adults: 'Extra Large'}],
         }        
     },
     methods: {
         addToCart(){
-            this.cart += 1
+            this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
         },
         removeCart(){
-            this.cart -= 1
+            this.$emit('remove-from-cart')
         },
         updateVariant(index){
             this.selectedVariant = index
