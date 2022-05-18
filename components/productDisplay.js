@@ -1,74 +1,86 @@
 app.component('product-display', {
+    props:{
+        premium: {
+            type: Boolean,
+            required: true
+        }
+    },
     template: 
     /*html*/
-    `<h1>{{product}}</h1>
-    <h2><a v-bind:href="link">Google</a></h2>
-    <p v-if="inventory > 10">In Stock</p>
-    <p>{{title}}</p>
-    <p v-else-if="inventory <= 10 && inventory > 0" >Almost Finished</p>
-    <p v-else>Out of Stock</p>
-    <p v-if="inStock">On Sale</p>
-    <p>{{description}}</p>
-    <img v-bind:src="image"
-    style="height: 500px; width:500px; border: 4px solid black;"
-    :class="{'outOfStockImage': !inStock}">
-    <ul style="list-style-type: none;">
-        <li v-for="detail in details">{{detail}}</li>
-    </ul>
-    <div
-    class="color-circle" 
-    v-for="(variant, index) in variants" 
-    :key="variant.id" 
-    @mouseover="updateVariant(index)" 
-    style="display: inline-block; margin:10px;"
-    :style="{backgroundColor: m.color}"
-    >
-    </div>
-    <ul style="list-style-type: none;">
-        <li v-for="size in sizes">{{size.adults}}</li>
-    </ul>
-    <div>
-        <button v-on:click="addToCart" :disabled="!inStock">Add to Cart</button>
-        <button v-on:click="removeCart">Remove Cart</button>
-        <div style="border: 1px solid black; display: inline-block; padding: 10px;">
-            Cart {{cart}}
+    `<div class="product-display">
+    <div class="product-container">
+      <div class="product-image">
+        <img v-bind:src="image">
+      </div>
+      <div class="product-info mt-5">
+        <h1 class="text-info">{{ title }}</h1>
+        <!-- solution -->
+        <p class="lead" v-if="inStock">In Stock</p>
+        <p class="lead" v-else>Out of Stock</p>
+        <p>Shipping: {{shipping}}</p>
+        <ul>
+          <li>Available in:</li>
+          <ul>
+              <li v-for="detail in details">{{ detail }}</li>
+          </ul>
+        </ul>  
+        <div 
+          v-for="(variant, index) in variants" 
+          :key="variant.id" 
+          @mouseover="updateVariant(index)" 
+          class="color-circle" 
+          :style="{ backgroundColor: variant.color }">
         </div>
-    </div>`,
+        
+        <button class="btn btn-primary m-2" :class="{ disabledButton: !inStock }" :disabled="!inStock" v-on:click="addToCart">Add to Cart</button>
+        <button class="btn btn-danger" :class="{ disabledButton: !inStock }" :disabled="!inStock" v-on:click="removeCart">Remove from Cart</button>
+      </div>
+    </div>
+  </div>`,
     data(){
-        return {
-            product: 'Socks',
+        return{
+            cart: 0,
+            product: 'Vue Socks',
             brand: 'Vue Learning',
             description: 'It is used to wear under the shoes!!',
             link: "https://www.google.com",
             inventory: 0,
-            inStock: true,
+            selectedVariant: 0,
             onSale:true,
             details:['cotton', 'polyster', 'plastic'],
             variants: [
-                {id: 001, color: 'midnightblue', image:"/assets/images/sock_black.jpg", quantity: 50},
-                {id: 002, color:'Grey', image:"/assets/images/sock_white.jpg", quantity: 0}
+                {id: 001, color: 'blue', image:"./assets/images/socks_blue.jpg", quantity: 50},
+                {id: 002, color:'Green', image:"./assets/images/socks_green.jpg", quantity: 0}
             ],
-            sizes: [{kids: 'Small'},{teens: 'Large'},{adults: 'Extra Large'}],            
-        }
+            sizes: [{kids: 'Small'},{teens: 'Large'},{adults: 'Extra Large'}],
+        }        
     },
     methods: {
         addToCart(){
             this.cart += 1
         },
-        updateVariant(index){
-            this.selectedVariant = index
-            console.log(index)
-        },
         removeCart(){
             this.cart -= 1
+        },
+        updateVariant(index){
+            this.selectedVariant = index
         }
     },
     computed: {
         title(){
-            return this.brand+' '+this.product
+            return this.brand+' '+':'+this.product
         },
         image(){
-            return this.variant[this.selectedVariant].image
+            return this.variants[this.selectedVariant].image
         },
+        inStock(){
+            return this.variants[this.selectedVariant].quantity
+        },
+        shipping(){
+            if (this.premium){
+                return 'Free'
+            }
+            return '5.00 AED'
+        }
     }
 })
