@@ -36,22 +36,21 @@ app.component('product-display', {
         <button class="btn btn-danger" :class="{ disabledButton: !inStock }" :disabled="!inStock" v-on:click="removeCart">Remove from Cart</button>
       </div>
     </div>
+    <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+    <review-form @review-submitted="addReview"></review-form>
   </div>`,
     data(){
         return{
-            cart: 0,
             product: 'Vue Socks',
             brand: 'Vue Learning',
-            description: 'It is used to wear under the shoes!!',
             link: "https://www.google.com",
-            inventory: 0,
             selectedVariant: 0,
-            onSale:true,
             details:['cotton', 'polyster', 'plastic'],
             variants: [
                 {id: 001, color: 'blue', image:"./assets/images/socks_blue.jpg", quantity: 50},
                 {id: 002, color:'Green', image:"./assets/images/socks_green.jpg", quantity: 10}
             ],
+            reviews:[],
             sizes: [{kids: 'Small'},{teens: 'Large'},{adults: 'Extra Large'}],
         }        
     },
@@ -64,6 +63,9 @@ app.component('product-display', {
         },
         updateVariant(index){
             this.selectedVariant = index
+        },
+        addReview(review){
+            this.reviews.push(review)
         }
     },
     computed: {
