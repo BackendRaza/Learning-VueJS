@@ -30,9 +30,9 @@ app.component('product-main', {
         data(){
             return{
                 title:'Product Page',
-                prodName:'Nice Socks',
-                desc:'Long lasting socks!! you will love it',
-                features: ['Polyster','10 Days return policy','One Year warranty'],
+                prodName:'Dumbells Hexagon',
+                desc:'Rubber coated with stainless steel',
+                features: ['Rubber Coating','10 Days return policy','One Year warranty'],
                 image: "./assets/img/thumbells0.png",
                 thumbnails: [
                     {id:001, color: "Blue", thumb:"./assets/img/thumbells0.png"},
