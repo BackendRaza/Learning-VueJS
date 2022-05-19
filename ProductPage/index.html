@@ -18,41 +18,14 @@
         <nav class="navbar bg-light">
             <div class="container-fluid">
               <a class="navbar-brand fw-bold" href="#">Vue App</a>
-              <div class="">
-                <i class="fa-solid fa-cart-shopping fa-2x text-secondary"></i>
+              <div class="m-3">
+                <i class="fa-solid fa-cart-shopping text-secondary fa-2x"></i>
+                  <span class="position-absolute top-30 start-60 translate-middle badge rounded-pill bg-danger">{{cart}}</span>
               </div>
             </div>
         </nav>
 
-        <div class="row m-5">
-            <p class="display-2 text-center">{{title}}</p>
-            <hr class="">
-            <!-- for image -->
-            <div class="col-lg-6 col-md-6 col-sm-6 col-sm-12 text-center">
-                <div class="container border p-1">
-                    <img class="img img-fluid" src="../assets/images/kewa.png" alt="product_image">
-                </div>
-                <!-- for image thumbnails -->
-                <div class="d-flex justify-content-around border border-rounded p-2 m-3">
-                    <img id="thumbs" class="img-fluid img-thumbnail" src="../assets/images/kewa.png" alt="">
-                    <img id="thumbs" class="img-fluid img-thumbnail" src="../assets/images/socks_blue.jpg" alt="">
-                    <img id="thumbs" class="img-fluid img-thumbnail" src="../assets/images/socks_green.jpg" alt="">
-                    <img id="thumbs" class="img-fluid img-thumbnail" src="../assets/images/kewa.png" alt="">
-                </div>
-            </div>
-            <!-- for details -->
-            <div class="col-lg-5 col-md-5 col-sm-12">
-                <div class="contaner">
-                    <h2>{{prodName}}</h2>
-                    <p class="lead">{{desc}}</p>
-                    <ul>
-                        <li v-for="feature in features">{{feature}}</li>
-                    </ul>
-                    <button class="btn btn-info m-3">Add to Cart</button>
-                    <button class="btn btn-success">Buy Now</button>
-                </div>
-            </div>
-        </div>
+        <product-main @add-to-cart="updateCart"></product-main>
         <div class="container-fluid">
             <h1>Extra Details</h1>
             <div class="card">
@@ -61,38 +34,19 @@
                 </div>
                 <div class="card-body">
                   <blockquote class="blockquote mb-0">
-                    <p>A well-known quote, contained in a blockquote element.</p>
+                    <p>{{extraDetails}}</p>
                     <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
                   </blockquote>
                 </div>
-              </div>
-              <div class="col-sm-12 mt-5 p-5 mb-5 container-fluid border border-rounded">
-                <h2>Feedback Form</h2>
-                <div class="mb-3">
-                    <label class="form-label">Name</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter Your Name">
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Your Review</label>
-                    <textarea placeholder="Enter your feedback" class="form-control" id="" cols="30" rows="10"></textarea>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Provide your Ratings</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                        <option value="4">Four</option>
-                        <option value="5">Five</option>
-                      </select>
-                  </div>
-                  <div class="mb-3">
-                    <button class="btn btn-success">Submit</button>
-                  </div>
-              </div>
+              </div>              
+            <feedback-form @submit-feedback="submitFeedback"></feedback-form>
+            <feedback-list :feedbacklist="feedbacklist"></feedback-list>
         </div>
     </div>
     <script src="main.js"></script>
+    <script src="./components/productMain.js"></script>
+    <script src="./components/feedbackForm.js"></script>
+    <script src="./components/feedbackList.js"></script>
     <script>
         const ProductPage = app.mount('#app')
     </script>
